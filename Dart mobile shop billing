@@ -1,0 +1,113 @@
+import 'dart:io';
+
+void main() {
+  String? customerName;
+  int choice, quantity;
+  double price = 0;
+
+  List<String> items = [];
+  List<int> quantities = [];
+  List<double> prices = [];
+
+  double total = 0;
+
+  print("===== Advanced Mobile Shop Billing System =====");
+
+  // Customer Name
+  stdout.write("Enter Customer Name: ");
+  customerName = stdin.readLineSync();
+
+  while (true) {
+    print("\nSelect Product:");
+    print("1. iPhone 14 - ₹70000");
+    print("2. Samsung Galaxy S23 - ₹60000");
+    print("3. OnePlus 11 - ₹50000");
+    print("4. Redmi Note 12 - ₹20000");
+    print("5. Charger - ₹1000");
+    print("6. Earbuds - ₹3000");
+    print("7. Mobile Cover - ₹500");
+    print("0. Finish Billing");
+
+    stdout.write("Enter your choice: ");
+    choice = int.parse(stdin.readLineSync()!);
+
+    if (choice == 0) break;
+
+    String itemName = "";
+
+    switch (choice) {
+      case 1:
+        itemName = "iPhone 14";
+        price = 70000;
+        break;
+      case 2:
+        itemName = "Samsung S23";
+        price = 60000;
+        break;
+      case 3:
+        itemName = "OnePlus 11";
+        price = 50000;
+        break;
+      case 4:
+        itemName = "Redmi Note 12";
+        price = 20000;
+        break;
+      case 5:
+        itemName = "Charger";
+        price = 1000;
+        break;
+      case 6:
+        itemName = "Earbuds";
+        price = 3000;
+        break;
+      case 7:
+        itemName = "Mobile Cover";
+        price = 500;
+        break;
+      default:
+        print("Invalid choice!");
+        continue;
+    }
+
+    stdout.write("Enter Quantity: ");
+    quantity = int.parse(stdin.readLineSync()!);
+
+    items.add(itemName);
+    quantities.add(quantity);
+    prices.add(price);
+
+    total += price * quantity;
+
+    print("Item added successfully!");
+  }
+
+  // Discount
+  double discount = 0;
+  if (total > 50000) {
+    discount = total * 0.10; // 10% discount
+  }
+
+  double discountedTotal = total - discount;
+  double gst = discountedTotal * 0.18;
+  double finalAmount = discountedTotal + gst;
+
+  // Receipt
+  print("\n=========== FINAL BILL ===========");
+  print("Customer Name: $customerName");
+  print("----------------------------------");
+  print("Item\tQty\tPrice\tTotal");
+
+  for (int i = 0; i < items.length; i++) {
+    double itemTotal = quantities[i] * prices[i];
+    print("${items[i]}\t${quantities[i]}\t₹${prices[i]}\t₹$itemTotal");
+  }
+
+  print("----------------------------------");
+  print("Subtotal: ₹$total");
+  print("Discount: ₹$discount");
+  print("After Discount: ₹$discountedTotal");
+  print("GST (18%): ₹$gst");
+  print("Final Amount: ₹$finalAmount");
+  print("==================================");
+  print("Thank You! Visit Again 🙏");
+}
